@@ -12,7 +12,6 @@ replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantonclo
 
 require (
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud-inc/go-commons v0.0.433
 	github.com/plantoncloud/planton-cloud-apis v0.0.214
 	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-00010101000000-000000000000
 	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.52
