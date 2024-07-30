@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/plantoncloud/planton-cloud-apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/route53zone/model"
-	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/aws/pulumiawsprovider"
+	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/provider/aws/pulumiawsprovider"
+	"github.com/plantoncloud/route53-zone-pulumi-module/pkg/outputs"
 	"github.com/pulumi/pulumi-aws-native/sdk/go/aws/route53"
 	awsclassicroute53 "github.com/pulumi/pulumi-aws/sdk/v6/go/aws/route53"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -44,8 +45,8 @@ func (s *ResourceStack) Resources(ctx *pulumi.Context) error {
 	}
 
 	//export important information about created hosted-zone as outputs
-	ctx.Export("hosted-zone-name", createdHostedZone.Name)
-	ctx.Export(HostedZoneNameserversOutputName, createdHostedZone.NameServers)
+	ctx.Export(outputs.HostedZoneName, createdHostedZone.Name)
+	ctx.Export(outputs.HostedZoneNameservers, createdHostedZone.NameServers)
 
 	//create aws-classic provider as the native provider does not yet support creating dns-records in hosted-zone
 	awsClassicProvider, err := pulumiawsprovider.GetClassic(ctx,

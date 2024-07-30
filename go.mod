@@ -1,4 +1,4 @@
-module github.com/plantoncloud/route53-zone-pulumi-blueprint
+module github.com/plantoncloud/route53-zone-pulumi-module
 
 go 1.22
 
@@ -17,7 +17,7 @@ require (
 	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.52
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
-	github.com/pulumi/pulumi/sdk/v3 v3.122.0
+	github.com/pulumi/pulumi/sdk/v3 v3.124.0
 )
 
 require (
