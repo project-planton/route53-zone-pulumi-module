@@ -4,15 +4,15 @@ go 1.22
 
 replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
 
-replace github.com/plantoncloud/stack-job-runner-golang-sdk => ../../plantoncloud/stack-job-runner-golang-sdk
+//replace github.com/plantoncloud/stack-job-runner-golang-sdk => ../../plantoncloud/stack-job-runner-golang-sdk
 
-replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
+//replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
 
 require (
 	github.com/pkg/errors v0.9.1
 	github.com/plantoncloud/planton-cloud-apis v0.0.214
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-00010101000000-000000000000
-	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.52
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240801150944-e149dc5e0403
+	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.53
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.127.0
