@@ -2,7 +2,7 @@ module github.com/plantoncloud/route53-zone-pulumi-module
 
 go 1.22
 
-replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
+//replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
 
 //replace github.com/plantoncloud/stack-job-runner-golang-sdk => ../../plantoncloud/stack-job-runner-golang-sdk
 
@@ -10,9 +10,9 @@ replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton
 
 require (
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/planton-cloud-apis v0.0.214
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240801150944-e149dc5e0403
-	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.53
+	github.com/plantoncloud/planton-cloud-apis v0.1.0
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240808151947-30fe31a468ca
+	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.56
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.127.0
