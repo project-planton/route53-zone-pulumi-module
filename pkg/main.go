@@ -3,7 +3,7 @@ package pkg
 import (
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/plantoncloud/planton-cloud-apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/route53zone/model"
+	"github.com/plantoncloud/planton-cloud-apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/route53zone"
 	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/provider/aws/pulumiawsprovider"
 	"github.com/plantoncloud/route53-zone-pulumi-module/pkg/outputs"
 	"github.com/pulumi/pulumi-aws-native/sdk/go/aws/route53"
@@ -13,7 +13,7 @@ import (
 )
 
 type ResourceStack struct {
-	Input     *model.Route53ZoneStackInput
+	Input     *route53zone.Route53ZoneStackInput
 	AwsLabels map[string]string
 }
 

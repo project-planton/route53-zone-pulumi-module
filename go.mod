@@ -10,16 +10,16 @@ go 1.22
 
 require (
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/planton-cloud-apis v0.1.0
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240808151947-30fe31a468ca
-	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.56
+	github.com/plantoncloud/planton-cloud-apis v0.1.6
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240813091317-49da3b41a14f
+	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.57
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.127.0
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.1-20240508200655-46a4cf4ba109.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240717164558-a6c49f84cc0f.2 // indirect
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
