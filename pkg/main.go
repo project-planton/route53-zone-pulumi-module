@@ -13,15 +13,11 @@ import (
 	"strings"
 )
 
-type ResourceStack struct {
-	StackInput *route53zone.Route53ZoneStackInput
-}
-
-func (s *ResourceStack) Resources(ctx *pulumi.Context) error {
+func Resources(ctx *pulumi.Context, stackInput *route53zone.Route53ZoneStackInput) error {
 	//create a variable with descriptive name for the api-resource in the input
-	route53Zone := s.StackInput.ApiResource
+	route53Zone := stackInput.ApiResource
 
-	awsCredential := s.StackInput.AwsCredential
+	awsCredential := stackInput.AwsCredential
 
 	//create aws provider using the credentials from the input
 	awsNativeProvider, err := aws.NewProvider(ctx,
