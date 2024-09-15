@@ -15,7 +15,7 @@ import (
 
 func Resources(ctx *pulumi.Context, stackInput *route53zone.Route53ZoneStackInput) error {
 	//create a variable with descriptive name for the api-resource in the input
-	route53Zone := stackInput.ApiResource
+	route53Zone := stackInput.Target
 
 	awsCredential := stackInput.AwsCredential
 
@@ -23,9 +23,9 @@ func Resources(ctx *pulumi.Context, stackInput *route53zone.Route53ZoneStackInpu
 	awsNativeProvider, err := aws.NewProvider(ctx,
 		"native-provider",
 		&aws.ProviderArgs{
-			AccessKey: pulumi.String(awsCredential.Spec.AccessKeyId),
-			SecretKey: pulumi.String(awsCredential.Spec.SecretAccessKey),
-			Region:    pulumi.String(awsCredential.Spec.Region),
+			AccessKey: pulumi.String(awsCredential.AccessKeyId),
+			SecretKey: pulumi.String(awsCredential.SecretAccessKey),
+			Region:    pulumi.String(awsCredential.Region),
 		})
 	if err != nil {
 		return errors.Wrap(err, "failed to create aws native provider")
@@ -55,9 +55,9 @@ func Resources(ctx *pulumi.Context, stackInput *route53zone.Route53ZoneStackInpu
 	awsClassicProvider, err := awsclassic.NewProvider(ctx,
 		"classic-provider",
 		&awsclassic.ProviderArgs{
-			AccessKey: pulumi.String(awsCredential.Spec.AccessKeyId),
-			SecretKey: pulumi.String(awsCredential.Spec.SecretAccessKey),
-			Region:    pulumi.String(awsCredential.Spec.Region),
+			AccessKey: pulumi.String(awsCredential.AccessKeyId),
+			SecretKey: pulumi.String(awsCredential.SecretAccessKey),
+			Region:    pulumi.String(awsCredential.Region),
 		})
 	if err != nil {
 		return errors.Wrap(err, "failed to create aws classic provider")
