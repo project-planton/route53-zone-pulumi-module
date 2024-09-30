@@ -1,17 +1,13 @@
 module github.com/plantoncloud/route53-zone-pulumi-module
 
-go 1.23.0
-
-toolchain go1.23.1
-
-//replace github.com/plantoncloud/project-planton => ../../plantoncloud/project-planton
+go 1.23.1
 
 //replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
 
 require (
+	buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go v1.34.2-20240930080942-f846802b359d.2
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/project-planton/apis v0.0.0-20240928044211-9168d6c7a46b
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240928073143-7b29b143661c
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240930122638-5bcefac53812
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.129.0
