@@ -68,7 +68,7 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 				ZoneId:  createdHostedZone.ID(),
 				Name:    pulumi.String(dnsRecord.Name),
 				Ttl:     pulumi.IntPtr(int(dnsRecord.TtlSeconds)),
-				Type:    pulumi.String(dnsRecord.RecordType),
+				Type:    pulumi.String(dnsRecord.RecordType.String()),
 				Records: pulumi.ToStringArray(dnsRecord.Values),
 			}, pulumi.Provider(awsProvider))
 		if err != nil {
