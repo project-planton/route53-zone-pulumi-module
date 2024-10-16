@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/project-planton/route53-zone-pulumi-module/pkg/outputs"
-	"github.com/pulumi/pulumi-aws-native/sdk/go/aws"
 	"github.com/pulumi/pulumi-aws-native/sdk/go/aws/route53"
 	awsclassic "github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 	awsclassicroute53 "github.com/pulumi/pulumi-aws/sdk/v6/go/aws/route53"
@@ -20,18 +19,18 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 	awsCredential := stackInput.AwsCredential
 
 	//create aws provider using the credentials from the input
-	awsNativeProvider, err := aws.NewProvider(ctx,
-		"native-provider",
-		&aws.ProviderArgs{})
+	awsProvider, err := awsclassic.NewProvider(ctx,
+		"classic-provider",
+		&awsclassic.ProviderArgs{})
 	if err != nil {
 		return errors.Wrap(err, "failed to create aws native provider")
 	}
 
 	if awsCredential != nil {
 		//create aws provider using the credentials from the input
-		awsNativeProvider, err = aws.NewProvider(ctx,
-			"native-provider",
-			&aws.ProviderArgs{
+		awsProvider, err = awsclassic.NewProvider(ctx,
+			"classic-provider",
+			&awsclassic.ProviderArgs{
 				AccessKey: pulumi.String(awsCredential.AccessKeyId),
 				SecretKey: pulumi.String(awsCredential.SecretAccessKey),
 				Region:    pulumi.String(awsCredential.Region),
@@ -50,7 +49,7 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 		&route53.HostedZoneArgs{
 			Name: pulumi.String(route53Zone.Metadata.Name),
 			//HostedZoneTags: convertLabelsToTags(input.Labels),
-		}, pulumi.Provider(awsNativeProvider))
+		}, pulumi.Provider(awsProvider))
 
 	if err != nil {
 		return errors.Wrapf(err, "failed to create hosted-zone for %s domain",
@@ -60,18 +59,6 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 	//export important information about created hosted-zone as outputs
 	ctx.Export(outputs.HostedZoneName, createdHostedZone.Name)
 	ctx.Export(outputs.HostedZoneNameservers, createdHostedZone.NameServers)
-
-	//create aws-classic provider as the native provider does not yet support creating dns-records in hosted-zone
-	awsClassicProvider, err := awsclassic.NewProvider(ctx,
-		"classic-provider",
-		&awsclassic.ProviderArgs{
-			AccessKey: pulumi.String(awsCredential.AccessKeyId),
-			SecretKey: pulumi.String(awsCredential.SecretAccessKey),
-			Region:    pulumi.String(awsCredential.Region),
-		})
-	if err != nil {
-		return errors.Wrap(err, "failed to create aws classic provider")
-	}
 
 	//for each dns-record in the input spec, insert the record in the created hosted-zone
 	for index, dnsRecord := range route53Zone.Spec.Records {
@@ -83,7 +70,7 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 				Ttl:     pulumi.IntPtr(int(dnsRecord.TtlSeconds)),
 				Type:    pulumi.String(dnsRecord.RecordType),
 				Records: pulumi.ToStringArray(dnsRecord.Values),
-			}, pulumi.Provider(awsClassicProvider))
+			}, pulumi.Provider(awsProvider))
 		if err != nil {
 			return errors.Wrapf(err, "failed to add %s rec", dnsRecord)
 		}
