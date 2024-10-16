@@ -22,13 +22,23 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 	//create aws provider using the credentials from the input
 	awsNativeProvider, err := aws.NewProvider(ctx,
 		"native-provider",
-		&aws.ProviderArgs{
-			AccessKey: pulumi.String(awsCredential.AccessKeyId),
-			SecretKey: pulumi.String(awsCredential.SecretAccessKey),
-			Region:    pulumi.String(awsCredential.Region),
-		})
+		&aws.ProviderArgs{})
 	if err != nil {
 		return errors.Wrap(err, "failed to create aws native provider")
+	}
+
+	if awsCredential != nil {
+		//create aws provider using the credentials from the input
+		awsNativeProvider, err = aws.NewProvider(ctx,
+			"native-provider",
+			&aws.ProviderArgs{
+				AccessKey: pulumi.String(awsCredential.AccessKeyId),
+				SecretKey: pulumi.String(awsCredential.SecretAccessKey),
+				Region:    pulumi.String(awsCredential.Region),
+			})
+		if err != nil {
+			return errors.Wrap(err, "failed to create aws native provider")
+		}
 	}
 
 	//replace dots with hyphens to create valid managed-zone name
