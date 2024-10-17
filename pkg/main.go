@@ -1,15 +1,16 @@
 package pkg
 
 import (
-	route53zonev1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/aws/route53zone/v1"
 	"fmt"
+	"strings"
+
+	route53zonev1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/aws/route53zone/v1"
 	"github.com/pkg/errors"
 	"github.com/project-planton/route53-zone-pulumi-module/pkg/outputs"
 	"github.com/pulumi/pulumi-aws-native/sdk/go/aws/route53"
 	awsclassic "github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 	awsclassicroute53 "github.com/pulumi/pulumi-aws/sdk/v6/go/aws/route53"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"strings"
 )
 
 func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackInput) error {
@@ -62,12 +63,16 @@ func Resources(ctx *pulumi.Context, stackInput *route53zonev1.Route53ZoneStackIn
 
 	//for each dns-record in the input spec, insert the record in the created hosted-zone
 	for index, dnsRecord := range route53Zone.Spec.Records {
+		TtlSeconds := dnsRecord.TtlSeconds
+		if TtlSeconds == 0 {
+			TtlSeconds = 300 // Set Default TTL to 300 Seconds
+		}
 		_, err := awsclassicroute53.NewRecord(ctx,
 			fmt.Sprintf("dns-record-%d", index),
 			&awsclassicroute53.RecordArgs{
 				ZoneId:  createdHostedZone.ID(),
 				Name:    pulumi.String(dnsRecord.Name),
-				Ttl:     pulumi.IntPtr(int(dnsRecord.TtlSeconds)),
+				Ttl:     pulumi.IntPtr(int(TtlSeconds)),
 				Type:    pulumi.String(dnsRecord.RecordType.String()),
 				Records: pulumi.ToStringArray(dnsRecord.Values),
 			}, pulumi.Provider(awsProvider))
