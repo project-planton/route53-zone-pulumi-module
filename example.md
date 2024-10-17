@@ -6,8 +6,8 @@
 This example sets up a basic public Route53 hosted zone for a domain. It provisions the DNS zone and outputs the nameservers for the domain, which can be used to update the domain registrar.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: public-dns-zone
 spec:
@@ -25,8 +25,8 @@ spec:
 This example provisions a private Route53 hosted zone associated with an AWS VPC. It restricts DNS resolution to the specified VPC, which is useful for internal services.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: private-dns-zone
 spec:
@@ -47,8 +47,8 @@ spec:
 This example creates a public DNS zone and an A record for the domain `www.example.com`, which points to the IP address of a web server.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: website-dns-zone
 spec:
@@ -72,8 +72,8 @@ spec:
 This example sets up a CNAME record for a subdomain (`app.example.com`) that points to another domain (`app-load-balancer.example.net`). This is commonly used for routing traffic to load balancers.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: subdomain-dns-zone
 spec:
@@ -97,8 +97,8 @@ spec:
 This example sets up an alias record for an AWS Elastic Load Balancer (ELB). An alias record is used to point to AWS resources without needing an IP address.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: elb-alias-dns-zone
 spec:
@@ -123,8 +123,8 @@ spec:
 This example provisions DNS records using a failover routing policy, directing traffic to different regions based on availability. The primary region is `us-east-1`, and the secondary region is `us-west-2`.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: multi-region-dns-zone
 spec:
@@ -153,8 +153,8 @@ spec:
 This example sets up an MX (Mail Exchange) record for `example.com`, directing email traffic to an external email server. MX records are essential for email configuration.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: email-dns-zone
 spec:
@@ -178,8 +178,8 @@ spec:
 This example provisions a TXT record to verify domain ownership, which is commonly required by services like Google, AWS, and Microsoft for SSL or domain registration verification.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: domain-verification-dns-zone
 spec:
@@ -203,8 +203,8 @@ spec:
 This example creates an SRV (Service) record for enabling service discovery within the domain, typically used for services like SIP, XMPP, or LDAP.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: service-discovery-dns-zone
 spec:
@@ -228,8 +228,8 @@ spec:
 This example demonstrates how to delegate a subdomain (e.g., `sub.example.com`) to another set of nameservers.
 
 ```yaml
-apiVersion: code2cloud.planton.cloud/v1
-kind: AwsRoute53Zone
+apiVersion: aws.project.planton/v1
+kind: Route53Zone
 metadata:
   name: subdomain-delegation-dns-zone
 spec:
@@ -251,10 +251,13 @@ spec:
 
 ### Applying the Configuration
 
-Once the desired YAML file with the configuration is created, apply it using the following command:
-
-```shell
-planton apply -f <yaml-path>
-```
+#### Prereq:
+* Set [Pulumi Backend](https://www.pulumi.com/docs/iac/concepts/state-and-backends/#local-filesystem)
+  * Local `pulumi login --local`
+* Set Region `pulumi config set aws:region <region>
+* Once the desired YAML file with the configuration is created, apply it using the following command:
+  ```shell
+  project-planton pulumi up --manifest <yaml-path> --stack <stack-path>
+  ```
 
 Refer to the example section for detailed usage instructions.
