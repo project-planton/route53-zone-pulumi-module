@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	route53zonev1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/aws/route53zone/v1"
 	"github.com/pkg/errors"
+	route53zonev1 "github.com/project-planton/project-planton/apis/go/project/planton/provider/aws/route53zone/v1"
 	"github.com/project-planton/route53-zone-pulumi-module/pkg/outputs"
 	"github.com/pulumi/pulumi-aws-native/sdk/go/aws/route53"
 	awsclassic "github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
