@@ -6,7 +6,7 @@ go 1.23.1
 
 require (
 	github.com/pkg/errors v0.9.1
-	github.com/project-planton/project-planton v0.0.23
+	github.com/project-planton/project-planton v0.0.30
 	github.com/pulumi/pulumi-aws-native/sdk v0.109.0
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.58.0
 	github.com/pulumi/pulumi/sdk/v3 v3.138.0
